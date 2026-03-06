@@ -3,10 +3,8 @@ import numpy as np
 
 # 1. Load the image in grayscale
 # put heatmap you just made
-img = cv2.imread('s1.png', 0) # STTSTSTTSTS
+img = cv2.imread('kyleshen.png', 0)
 h, w = img.shape
-
-#TTSTTS5TS
 
 # #ENP:
 n_rows = 126
@@ -47,7 +45,7 @@ for i in range(n_rows):
 
 # 5. Sort by average color (lowest value = most black/highest risk)
 # We take the top 150
-top_risky = sorted(grid_data, key=lambda x: x['avg'])[:150] # no of rangers TSTSTSTTST
+top_risky = sorted(grid_data, key=lambda x: x['avg'])[:150] # no of rangers
 
 # Create a colored version of the original to draw on
 output_img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
@@ -56,9 +54,8 @@ output_img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 for cell in top_risky:
     x, y = cell['coords']
     # Draw rectangle (top-left to bottom-right)
-    cv2.rectangle(output_img, (x, y), (x + grid_w, y + grid_h), (255, 0, 0), 2) # (0, 0, 255) r, (255, 0, 0) b
+    cv2.rectangle(output_img, (x, y), (x + grid_w, y + grid_h), (0, 0, 255), 2) # (0, 0, 255) r, (255, 0, 0) b
 
 # Save or show the result
-cv2.imwrite('s1t.png', output_img)
-# TSTSTSTS6T NAME IT RESULT FILE
-    
+cv2.imwrite('kyleshen1.png', output_img)
+# NAME IT RESULT FILE

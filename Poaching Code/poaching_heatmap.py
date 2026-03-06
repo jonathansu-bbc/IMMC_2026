@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 
-# DO THIS TSTSTT5S
-
 # #ENP:
 d_h_i = 0.05  # Weighting on H at day (0.05)
 d_q_i = 0.15  # Weighting on Q at day (0.15)
@@ -29,14 +27,14 @@ def f2_v(x): return 0.15 * np.log(x + np.exp(-4)) + 0.6
 
 # if drop a lanmark make i and j 0 (weighting)
 enp = {# (RGB, (animal region, poacher region, max_dist, animal a/r, poacher a/r, animal day, poacher day, animal night, poacher night))
-    "t": ((77, 189, 114), (0.75, 1.0, 300, 1, 1, 0, 0, 0, 0)), # last 4: 0.1, 0.05, 0.3, 0.02
-    "s": ((150, 251, 122), (1.0, 0.75, 350, 1, 1, 0, 0, 0, 0)), # last 4: 0.05, 0.03, 0.1, 0.01
-    "g": ((255, 195, 0), (0.5, 0.75, 570, 1, 1, 0, 0, 0, 0)), # last 4: 0.05, 0.02, 0.05, 0.01
-    "p": ((142, 185, 219), (1.0, 0.25, 700, 1, 2, 0, 0, 0, 0)), # last 4: 0.35, 0.03, 0.05, 0.03
-    "w": ((0, 34, 255), (1.0, 0.25, 480, 1, 1, 0.25, 0.02, 0.5, 0.1)), #Pnight was 0.02
-    "r": ((255, 225, 0), (0.25, 1.0, 400, 2, 1, 0.05, 0.3, 0, 0.15)), #Pnight was 0.2
-    "c": ((255, 0, 0), (0.25, 0.25, 570, 2, 2, 0.1, 0.2, 0.05, 0.18)), #Pday was 0.25, Pnight was 0.2
-    "f": ((0, 0, 0), (0.25, 1.0, 380, 1, 1, 0, 0.2, 0, 0.2))  #Pday was 0.15, Pnight was 0.15
+    "t": ((77, 189, 114), (0.75, 1.0, 300, 1, 1, 0.1, 0.05, 0.3, 0.02)), # last 4: 0.1, 0.05, 0.3, 0.02
+    "s": ((150, 251, 122), (1.0, 0.75, 350, 1, 1, 0.05, 0.03, 0.1, 0.01)), # last 4: 0.05, 0.03, 0.1, 0.01
+    "g": ((255, 195, 0), (0.5, 0.75, 570, 1, 1, 0.05, 0.02, 0.05, 0.01)), # last 4: 0.05, 0.02, 0.05, 0.01
+    "p": ((142, 185, 219), (1.0, 0.25, 700, 1, 2, 0.35, 0.03, 0.05, 0.03)), # last 4: 0.35, 0.03, 0.05, 0.03
+    "w": ((0, 34, 255), (1.0, 0.25, 480, 1, 1, 0.25, 0.02, 0.5, 0.1)), #Pnight was 0.02, last 4: 0.25, 0.02, 0.5, 0.1
+    "r": ((255, 225, 0), (0.25, 1.0, 400, 2, 1, 0.05, 0.3, 0, 0.15)), #Pnight was 0.2, last 4: 0.05, 0.3, 0, 0.15
+    "c": ((255, 0, 0), (0.25, 0.25, 570, 2, 2, 0.1, 0.2, 0.05, 0.18)), #Pday was 0.25, Pnight was 0.2, last 4: 0.1, 0.2, 0.05, 0.18
+    "f": ((0, 0, 0), (0.25, 1.0, 380, 1, 1, 0, 0.2, 0, 0.2))  #Pday was 0.15, Pnight was 0.15, last 4: 0, 0.2, 0, 0.2
 }
 
 inp = {
@@ -126,7 +124,7 @@ def generate_risk_heatmap(map, image_path, output_path, time):
             else:
                 p_p = p_p + info[1][8] * f2_v(d_maps[name])
 
-    risk_map = 0.8 * p_r + 0.2 * p_p
+    risk_map = 0.79 * p_r + 0.21 * p_p # 0.8, 0.2
     risk_map = np.clip(risk_map, 0, 1)
 
     heatmap = np.zeros((h, w, 3), dtype=np.uint8)
@@ -140,4 +138,4 @@ def generate_risk_heatmap(map, image_path, output_path, time):
 
 # Usage
 t = input("Time: ")
-generate_risk_heatmap(enp, "ENP.png", "real1.png", t) #TSTSTTS
+generate_risk_heatmap(enp, "ENP.png", "kyleshen.png", t)
